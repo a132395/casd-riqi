@@ -155,7 +155,7 @@ async function restore_undownloaded(){
 }
 
 async function updateDB(){
-    let respone = await gotInstance.get('forum.php?mod=forumdisplay&fid=36&typeid=368&filter=typeid&typeid=368&page=1');
+    let respone = await gotInstance.get('forum.php?mod=forumdisplay&fid=103&page=1');
     const html = respone.body;
     const $ = cheerio.load(html);
     // console.log($("tbody[id^='normalthread']").length);
@@ -168,8 +168,8 @@ async function updateDB(){
     //const forumPrefix = match[1];
     //const maxPageNumber = parseInt(match[2]);
     //console.log(forumPrefix,maxPageNumber);
-    const forumPrefix = 'forum.php?mod=forumdisplay&fid=36&typeid=368&filter=typeid&typeid=368&page='
-    const maxPageNumber = 165
+    const forumPrefix = 'forum.php?mod=forumdisplay&fid=103&page='
+    const maxPageNumber = 7
 
     console.log('Checking new posts...');
     const query_text = `INSERT INTO posts (url,title,postdate,downloaded)
@@ -178,7 +178,7 @@ async function updateDB(){
     ON CONFLICT 
     DO NOTHING;`;
 
-    for (let i = 1 ; i<= 1 ; i++){
+    for (let i = 2 ; i<= 1 ; i++){
         //
         const promises = [];
         try{
@@ -246,7 +246,8 @@ async function main(){
         
         // Get latest date
         const get_date_query = `SELECT postdate FROM posts
-	WHERE magnet IS NOT NULL
+        WHERE postdate < '2020-11-31'
+	AND postdate > '2020-11-25'
 	AND downloaded = false
 	ORDER BY postdate DESC
         LIMIT 1;`;
