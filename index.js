@@ -178,7 +178,7 @@ async function updateDB(){
     ON CONFLICT 
     DO NOTHING;`;
 
-    for (let i = 2 ; i<= 1 ; i++){
+    for (let i = 1 ; i<= 1 ; i++){
         //
         const promises = [];
         try{
@@ -246,8 +246,7 @@ async function main(){
         
         // Get latest date
         const get_date_query = `SELECT postdate FROM posts
-        WHERE postdate < '2021-03-31'
-	AND postdate > '2021-03-25'
+	WHERE magnet IS NOT NULL
 	AND downloaded = false
 	ORDER BY postdate DESC
         LIMIT 1;`;
